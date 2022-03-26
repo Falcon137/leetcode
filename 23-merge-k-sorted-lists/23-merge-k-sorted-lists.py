@@ -19,7 +19,6 @@ class Solution:
             heapq.heappush(h,(lists[idx].val,idx))
         while h:
             best,idx = heapq.heappop(h)
-            print('iteration:',best,idx)
             tail.next = ListNode(best)
             tail = tail.next
             lists[idx] = lists[idx].next
