@@ -21,8 +21,6 @@ class Solution:
             list2 = list2.next
         cur = out
         while (list1 is not None) or (list2 is not None):
-            print('list1',list1)
-            print('list2',list2)
             if list1 is None:
                 cur.next = ListNode(list2.val)
                 cur = cur.next
