@@ -1,10 +1,5 @@
 class Solution:
     def containsDuplicate(self, nums: List[int]) -> bool:
-        h = {}
-        for el in nums:
-            if el in h:
-                return True
-            h[el] = 'literally_anything'
-        return False
+        return len({i:True for i in nums})!=len(nums)
                 
         
