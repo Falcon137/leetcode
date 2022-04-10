@@ -4,7 +4,7 @@ class Solution:
         for el in nums:
             if el in h:
                 return True
-            h[el] = 'a'
+            h[el] = 'literally_anything'
         return False
                 
         
