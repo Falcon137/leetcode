@@ -26,7 +26,7 @@ class Solution:
     def get_hashes(self,node):
         if node is None:
             return 0
-        node.hash = hash(self.get_hashes(node.left)+self.get_hashes(node.right)+node.val)
+        node.hash = self.get_hashes(node.left)+self.get_hashes(node.right)+node.val
         return node.hash
         
     def isSubtree(self, root: TreeNode, subRoot: TreeNode) -> bool:
