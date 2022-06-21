@@ -11,25 +11,14 @@ class Solution:
         if node is None:
             return None
         h = {}
-        self.load_hashmap(node,h)
-        h2 = {}
-        self.copy_verticies(node,h,h2)
+        return self.helper(node,h)
+    def helper(self,node,h):
+        if node in h:
+            return h[node]
+        h[node] = Node(node.val,[])
+        for neigh in node.neighbors:
+            h[node].neighbors.append(self.helper(neigh,h))
         return h[node]
-    
-    def load_hashmap(self,node,h):
-        h[node] = Node(node.val)
-        for neigh in node.neighbors:
-            if neigh not in h:
-                self.load_hashmap(neigh,h)
-    
-    def copy_verticies(self,node,h,h2):
-        h2[node] = True
-        for neigh in node.neighbors:
-            h[node].neighbors.append(h[neigh])
-        
-        for neigh in node.neighbors:
-            if neigh not in h2:
-                self.copy_verticies(neigh,h,h2)
             
         
         
