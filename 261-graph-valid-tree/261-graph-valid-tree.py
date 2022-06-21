@@ -1,6 +1,6 @@
 class Solution:
     def validTree(self, n: int, edges: List[List[int]]) -> bool:
-        seen = [-1]*n
+        seen = [False]*n
         adjL = [[] for _ in range(n)]
         for e in edges:
             a,b = e[0],e[1]
@@ -9,20 +9,36 @@ class Solution:
         
         cc = 0
         for i in range(n):
-            if seen[i] == -1:
-                seen[i] = n
-                if self.dfs(i,adjL,seen) == False:
+            if seen[i] == False:
+                if cc > 0:
+                    return False
+                seen[i] = True
+                if self.dfs(i,adjL,seen,n) == False:
                     return False
                 cc += 1
-        return cc ==1
+        return True
     
-    def dfs(self,i,adjL,seen):
+    def dfs(self,i,adjL,seen,prev):
         for neigh in adjL[i]:
-            if seen[neigh]==-1:
-                seen[neigh]=i
-                if self.dfs(neigh,adjL,seen) == False:
+            if not seen[neigh]:
+                seen[neigh] = True
+                dfs = self.dfs(neigh,adjL,seen,i)
+                if dfs == False:
                     return False
-            elif neigh != seen[i]:
+            elif (neigh != prev):
                 return False
         return True
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
