@@ -1,25 +1,26 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        adjL = {i:[] for i in range(numCourses)}
+        path = {}
+        visited = {}
+        adjL = [[] for _ in range(numCourses)]
         for a,b in prerequisites:
             adjL[b].append(a)
-        visited = {}
-        trap = {}
         for i in range(numCourses):
             if i not in visited:
-                if self.dfs(i,visited,adjL,trap):
+                if self.dfs(i,path,adjL,visited)==False:
                     return False
         return True
     
-    def dfs(self,i,visited,adjL,trap):
-        if i in visited:
-            trap[i] = True
+    def dfs(self,node_idx,path,adjL,visited):
+        if node_idx in path:
             return False
-        visited[i] = True
-        for neighbor in adjL[i]:
-            if self.dfs(neighbor,visited,adjL,trap):
-                return True
-        if i in trap:
+        if node_idx in visited:
             return True
-        return False
-            
+        path[node_idx] = True
+        visited[node_idx] = True
+        for neighbor in adjL[node_idx]:
+            if self.dfs(neighbor,path,adjL,visited) == False:
+                return False
+        del path[node_idx]
+        return True
+        
