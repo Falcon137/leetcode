@@ -13,25 +13,15 @@ class Solution:
             adjL[letter] = []
         prev = words[0]
         alphabet = {}
-        all_letters[prev[0]] = True
         self.alph(prev,alphabet)
         for cur in words[1:]:
             fd = self.get_first_difference(prev,cur)
-            if fd==0:
-                if all_letters[cur[0]]:
-                    return ''
-                for letter in all_letters:
-                    if not all_letters[letter]:
-                        if letter not in adjL[prev[fd]]:
-                            adjL[prev[fd]].append(letter)
-            elif fd>0:
+            if fd >= 0:
                 adjL[prev[fd]].append(cur[fd])
             elif len(cur) < len(prev):
                 return ''
-            all_letters[cur[0]] = True
             self.alph(cur,alphabet)
             prev = cur
-            
         return self.topo_sort(adjL,alphabet)
                 
      
@@ -46,7 +36,7 @@ class Solution:
         return -1
     
     def topo_sort(self,adjL,alphabet):
-        dependencies = {k:0 for k in adjL}
+        dependencies = {k:0 for k in alphabet}
         for source in adjL:
             for destination in adjL[source]:
                 dependencies[destination] +=1 
